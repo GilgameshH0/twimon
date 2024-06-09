@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Twitter Friends</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Twitter Friends</h1>
+      <form method="POST">
+        <input type="text" name="screen_name">
+        <button>Search</button>
+      </form>
+      <br>
+      <table>
+        <thead>
+          <tr>
+            <th>Profile Image URL</th>
+            <th>Profile Banner URL</th>
+            <th>Name</th>
+            <th>Screen Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for friend in friends %}
+            <tr>
+              <td><img src="{{ friend.raw_data['legacy']['profile_image_url_https'] }}" height="50" width="50"></td>
+              <td><img src="{{ friend.raw_data['legacy']['profile_banner_url'] }}" height="50" width="50"></td>
+              <td>{{ friend.name }}</td>
+              <td><a href="https://twitter.com/{{ friend.username }}">{{ friend.username }}</td>
+              <td>{{ friend.description }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
